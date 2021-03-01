@@ -85,5 +85,22 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
+    test('gets the test user todos', async() => {
+      const expectation = [{
+        id: 4,
+        todo: 'wash windows',
+        completed: false,
+        user_id: 2
+      }];
+
+      const data = await fakeRequest(app)
+        .get('/api/todos')
+        .set({ 'Authorization': token })
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
   });
 });
