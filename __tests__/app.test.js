@@ -102,5 +102,24 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
+    test('updates the completed property of a user todo item', async() => {
+      const expectation = {
+        id: 4,
+        todo: 'wash windows',
+        completed: true,
+        user_id: 2
+      };
+
+      const update = { completed: true };
+
+      const data = await fakeRequest(app)
+        .put('/api/todos/4')
+        .set({ 'Authorization': token })
+        .send(update)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
   });
 });
